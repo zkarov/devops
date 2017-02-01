@@ -13,3 +13,20 @@
     git:
       repo: https://github.com/zkarov/devops.git
       dest: devops
+  - name: install docker
+    yum: name=docker state=latest
+    become: yes
+    become_method: sudo
+  - name: add ec2-user to docker group
+    user:
+      name: ec2-user
+      groups: docker
+      append: yes
+    become: yes
+    become_method: sudo
+  - name: running docker
+    shell: service docker restart
+    become: yes
+    become_method: sudo
+ 
+
