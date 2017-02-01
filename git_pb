@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  tasks:
+  - name: ensure apache is at the latest version
+    yum: name=git state=latest
+    become: yes
+    become_method: sudo
+  - name: close sprint-petclinic project from github
+    git: 
+      repo: https://github.com/zkarov/spring-petclinic.git
+      dest: spring-petclinic
+  - name: clone devops project from github
+    git:
+      repo: https://github.com/zkarov/devops.git
+      dest: devops
