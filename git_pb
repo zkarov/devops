@@ -5,14 +5,14 @@
     yum: name=git state=latest
     become: yes
     become_method: sudo
-  - name: close sprint-petclinic project from github
-    git: 
-      repo: https://github.com/zkarov/spring-petclinic.git
-      dest: spring-petclinic
-  - name: clone devops project from github
-    git:
-      repo: https://github.com/zkarov/devops.git
-      dest: devops
+#  - name: close sprint-petclinic project from github
+#    git: 
+#      repo: https://github.com/zkarov/spring-petclinic.git
+#      dest: spring-petclinic
+#  - name: clone devops project from github
+#    git:
+#      repo: https://github.com/zkarov/devops.git
+#      dest: devops
   - name: install docker
     yum: name=docker state=latest
     become: yes
@@ -28,5 +28,13 @@
     shell: service docker restart
     become: yes
     become_method: sudo
- 
-
+  - name: add to .bashrc
+    lineinfile:
+      dest: /home/ec2-user/.bashrc
+      line: 'export M2_HOME=/home/ec2-user/apache-maven-3.3.9'
+  - lineinfile:
+      dest: /home/ec2-user/.bashrc
+      line: 'export M2=$M2_HOME'
+  - lineinfile:
+      dest: /home/ec2-user/.bashrc
+      line: 'export PATH=$M2:$PATH'
